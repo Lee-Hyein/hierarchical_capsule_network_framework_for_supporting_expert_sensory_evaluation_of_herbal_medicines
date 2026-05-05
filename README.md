@@ -1,11 +1,10 @@
 # hierarchical_capsule_network_framework_for_supporting_expert_sensory_evaluation_of_herbal_medicines
 
-This repository contains a hierarchical image dataset for herbal medicines and training scripts for hierarchical deep learning models, including ConditionCNN, BCNN, and H-CapsNet. The current training code supports a 3-level taxonomy built from folder names in the order `masterCategory / subCategory / articleType`. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
+This repository contains a hierarchical image dataset for herbal medicines and training scripts for hierarchical deep learning models, including ConditionCNN, BCNN, and H-CapsNet. The current training code supports a 3-level taxonomy built from folder names in the order `masterCategory / subCategory / articleType`. 
 
 ## Repository overview
 
-The dataset is organized as a hierarchical image tree. The training pipeline in `Train.py` scans three nested directory levels and converts them into labels for `masterCategory`, `subCategory`, and `articleType`. It then creates train/validation/test splits, one-hot labels, training history files, plots, saved weights, and hierarchical evaluation CSV outputs. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
-
+The dataset is organized as a hierarchical image tree. The training pipeline in `Train.py` scans three nested directory levels and converts them into labels for `masterCategory`, `subCategory`, and `articleType`. It then creates train/validation/test splits, one-hot labels, training history files, plots, saved weights, and hierarchical evaluation CSV outputs. 
 ## Expected dataset structure
 
 ```text
@@ -28,14 +27,14 @@ For `scripts/Train.py`, the practical dataset argument is:
 hierarchy_image_dataset_aug/herbal
 ```
 
-This is because `Train.py` expects the image root to begin directly from the first taxonomy level. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
+This is because `Train.py` expects the image root to begin directly from the first taxonomy level. 
 
 ## Files
 
-- `scripts/Train.py`: main training entry point for multiple models, including `Condition` and `BCNN`. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
-- `scripts/ConditionCNN.py`: conditional hierarchical CNN model definition with master/sub/article outputs. [Source](https://www.genspark.ai/api/files/s/EEjlzb22)
-- `scripts/BCNN.py`: branching CNN baseline with three hierarchical outputs. [Source](https://www.genspark.ai/api/files/s/9NQNhnpx)
-- `scripts/H-CapsNet_only.py`: standalone H-CapsNet training script. It imports `src.MLmodel`, `src.datasets`, `src.metrics`, and `src.sysenv`. [Source](https://www.genspark.ai/api/files/s/37dgRBh5)
+- `scripts/Train.py`: main training entry point for multiple models, including `Condition` and `BCNN`. 
+- `scripts/ConditionCNN.py`: conditional hierarchical CNN model definition with master/sub/article outputs. 
+- `scripts/BCNN.py`: branching CNN baseline with three hierarchical outputs. 
+- `scripts/H-CapsNet_only.py`: standalone H-CapsNet training script. It imports `src.MLmodel`, `src.datasets`, `src.metrics`, and `src.sysenv`. 
 
 ## Installation
 
@@ -48,7 +47,7 @@ pip install tensorflow numpy pandas matplotlib treelib
 Optional tools:
 
 - Graphviz is useful if you want model architecture plots from H-CapsNet.
-- A CUDA-enabled TensorFlow environment is recommended for training. [Source](https://www.genspark.ai/api/files/s/37dgRBh5)
+- A CUDA-enabled TensorFlow environment is recommended for training. 
 
 ## How to run
 
@@ -66,7 +65,7 @@ Argument order:
 python scripts/Train.py <model_name> <epochs> <train_batch> <val_batch> <data_dir>
 ```
 
-`Train.py` chooses the `ConditionCNN` branch when `model_type == 'Condition'`. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
+`Train.py` chooses the `ConditionCNN` branch when `model_type == 'Condition'`.
 
 ### 2) BCNN
 
@@ -76,7 +75,7 @@ python scripts/Train.py <model_name> <epochs> <train_batch> <val_batch> <data_di
 python scripts/Train.py BCNN 50 8 8 hierarchy_image_dataset_aug/herbal
 ```
 
-`Train.py` chooses the `BCNN` branch when `model_type == 'BCNN'`. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
+`Train.py` chooses the `BCNN` branch when `model_type == 'BCNN'`. 
 
 ### 3) H-CapsNet
 
@@ -88,14 +87,14 @@ PYTHONPATH=. python scripts/H-CapsNet_only.py
 
 Important notes:
 
-1. The script imports modules from `src`, so the repository root must be visible in `PYTHONPATH`, or an equivalent package layout must be prepared. [Source](https://www.genspark.ai/api/files/s/37dgRBh5)
+1. The script imports modules from `src`, so the repository root must be visible in `PYTHONPATH`, or an equivalent package layout must be prepared. 
 2. The script currently contains a fixed `DATA_ROOT` path:
 
 ```python
 DATA_ROOT = "/mnt/mydisk/hyein/paper_exp_0929/hierarchy_image_dataset_aug"
 ```
 
-If your dataset is stored elsewhere, edit that variable before running. [Source](https://www.genspark.ai/api/files/s/37dgRBh5)
+If your dataset is stored elsewhere, edit that variable before running.
 
 ## Output files
 
@@ -106,7 +105,7 @@ Running `Condition` or `BCNN` produces:
 - training history CSV files in `history/`
 - loss plots in `plots/`
 - trained weights in `weights/`
-- hierarchical metric CSV files for validation and test sets [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
+- hierarchical metric CSV files for validation and test sets 
 
 ### `H-CapsNet_only.py`
 
@@ -116,13 +115,13 @@ Running H-CapsNet produces:
 - CSV logs
 - best checkpoint weights
 - final model weights
-- evaluation metrics and confusion-matrix-related outputs [Source](https://www.genspark.ai/api/files/s/37dgRBh5)
+- evaluation metrics and confusion-matrix-related outputs
 
 ## Notes
 
-- `Train.py` uses image size `(128, 128)` for training. [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
-- `ConditionCNN.py` and `BCNN.py` define default class counts as 4 master classes, 21 sub-classes, and 45 article classes, but `Train.py` can infer class counts dynamically from the dataset folders when a valid dataset path is provided. [Source](https://www.genspark.ai/api/files/s/EEjlzb22) [Source](https://www.genspark.ai/api/files/s/9NQNhnpx) [Source](https://www.genspark.ai/api/files/s/Ym3LosEF)
-- Small batch sizes such as `8` or `4` are recommended first if GPU memory is limited. `H-CapsNet_only.py` already uses reduced batch settings to avoid OOM errors. [Source](https://www.genspark.ai/api/files/s/37dgRBh5)
+- `Train.py` uses image size `(128, 128)` for training. 
+- `ConditionCNN.py` and `BCNN.py` define default class counts as 4 master classes, 21 sub-classes, and 45 article classes, but `Train.py` can infer class counts dynamically from the dataset folders when a valid dataset path is provided.
+- Small batch sizes such as `8` or `4` are recommended first if GPU memory is limited. `H-CapsNet_only.py` already uses reduced batch settings to avoid OOM errors.
 
 ## Example Git update
 
