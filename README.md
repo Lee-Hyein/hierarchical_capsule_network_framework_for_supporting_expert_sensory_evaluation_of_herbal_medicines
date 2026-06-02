@@ -1,4 +1,4 @@
-# hierarchical_capsule_network_framework_for_supporting_expert_sensory_evaluation_of_herbal_medicines
+# hierarchical capsule network framework for supporting expert sensory evaluation of herbal medicines
 
 This repository contains a hierarchical image dataset for herbal medicines and training scripts for hierarchical deep learning models, including ConditionCNN, BCNN, and H-CapsNet. The current training code supports a 3-level taxonomy built from folder names in the order `masterCategory / subCategory / articleType`. 
 
